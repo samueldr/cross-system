@@ -1,24 +1,11 @@
 { config, pkgs, lib, ... }:
 
-let
-  system = "aarch64-linux";
-  #system = "armv7l-linux";
-  #system = "armv6l-linux";
-in
 {
   imports = [
     <nixpkgs/nixos/modules/profiles/minimal.nix>
     <nixpkgs/nixos/modules/profiles/installation-device.nix>
     <nixpkgs/nixos/modules/installer/cd-dvd/sd-image.nix>
-  ]
-  ++ lib.optional (system == "aarch64-linux") <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-aarch64.nix>
-  ++ lib.optional (system == "armv7l-linux")  <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-armv7l-multiplatform.nix>
-  ++ lib.optional (system == "armv6l-linux")  <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-raspberrypi.nix>
-  ;
-
-  nixpkgs.crossSystem = {
-    inherit system;
-  };
+  ];
 
   nixpkgs.overlays = [(self: super: {
     # Does not cross-compile...
