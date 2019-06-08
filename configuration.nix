@@ -22,7 +22,7 @@
   # texinfoInteractive has trouble cross-compiling
   documentation.info.enable = lib.mkForce false;
 
-  # Somehow, `xterm` is being built even though this is GUI-less?
-  #  → https://github.com/NixOS/nixpkgs/blob/100f0b032dcb07ff5e1b9e29ed3975b43ce12242/nixos/modules/services/x11/desktop-managers/xterm.nix#L16
+  # `xterm` is being included even though this is GUI-less.
+  # → https://github.com/NixOS/nixpkgs/pull/62852
   services.xserver.desktopManager.xterm.enable = lib.mkForce false;
 }
