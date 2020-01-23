@@ -10,6 +10,9 @@
   nixpkgs.overlays = [(self: super: {
     # Does not cross-compile...
     alsa-firmware = pkgs.runCommandNoCC "neutered-firmware" {} "mkdir -p $out";
+
+    # A "regression" in nixpkgs, where python3 pycryptodome does not cross-compile.
+    crda = pkgs.runCommandNoCC "neutered-firmware" {} "mkdir -p $out";
   })];
 
   # (Failing build in a dep to be investigated)
