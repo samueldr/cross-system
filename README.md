@@ -1,5 +1,7 @@
 ```
-./build.sh --argstr system aarch64-linux
-./build.sh --argstr system armv7l-linux
-./build.sh --argstr system armv6l-linux
+ $ nix-build -A armv6l-linux.sdImage
+ $ nix-build -A armv7l-linux.sdImage
+ $ nix-build -A armv7l-linux.isoImage
+ $ nix-build -A aarch64-linux.sdImage
+ $ nix-build -A aarch64-linux.isoImage
 ```

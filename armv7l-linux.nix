@@ -1,7 +1,6 @@
 {
   imports = [
     ./configuration.nix
-    <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-armv7l-multiplatform.nix>
   ];
 
   nixpkgs.crossSystem = {

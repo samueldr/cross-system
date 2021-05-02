@@ -1,10 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nixpkgsPath, ... }:
 
 {
   imports = [
-    <nixpkgs/nixos/modules/profiles/minimal.nix>
-    <nixpkgs/nixos/modules/profiles/installation-device.nix>
-    <nixpkgs/nixos/modules/installer/cd-dvd/sd-image.nix>
+    (nixpkgsPath + "/nixos/modules/profiles/minimal.nix")
+    (nixpkgsPath + "/nixos/modules/profiles/installation-device.nix")
   ];
 
   nixpkgs.overlays = [(self: super: {
