@@ -18,6 +18,10 @@
     smartmontools = super.smartmontools.overrideAttrs(old: {
       configureFlags = [];
     });
+
+    # spidermonkey, needed for polkit, needed for wpa_supplicant,
+    # does not cross-compile.
+    wpa_supplicant = self.pkgs.runCommandNoCC "neutered-firmware" {} "mkdir -p $out";
   })];
 
   # (Failing build in a dep to be investigated)
@@ -37,4 +41,6 @@
   # ec6224b6cd147943eee685ef671811b3683cb2ce re-introduced udisks in the installer
   # udisks fails due to gobject-introspection being not cross-compilation friendly.
   services.udisks2.enable = lib.mkForce false;
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 }
