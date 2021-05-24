@@ -29,8 +29,7 @@ Bad adaptation of the following:
   boot.consoleLogLevel = lib.mkDefault 7;
 
   boot.kernelParams = [
-    "cma=32M"
-    "console=ttyS2,115200n8"
+    "console=ttyS2,1500000n8"
     "earlycon=uart8250,mmio32,0xff1a0000"
     "earlyprintk"
     "loglevel=7"
