@@ -47,9 +47,9 @@ in
     system = "aarch64-linux";
     configuration = {
       imports = [
-        (fromPkgs "nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
+        (fromPkgs "nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix")
         ./helios64
       ];
     };
-  }).config.system.build.isoImage;
+  }).config.system.build.sdImage;
 }
