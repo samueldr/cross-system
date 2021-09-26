@@ -14,9 +14,9 @@ Bad adaptation of the following:
 {
   imports = [
     # helios64 specific
-    #./modules/fancontrol.nix
     #./modules/ups.nix
     #./modules/heartbeat.nix
+    ./modules/fancontrol.nix
   ];
 
   nixpkgs.overlays = [
