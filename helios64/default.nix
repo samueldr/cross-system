@@ -14,9 +14,9 @@ Bad adaptation of the following:
 {
   imports = [
     # helios64 specific
-    #./modules/ups.nix
     ./modules/fancontrol.nix
     ./modules/heartbeat.nix
+    ./modules/ups.nix
     ./modules/usbnet.nix
   ];
 
