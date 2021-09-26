@@ -126,7 +126,7 @@ stdenv.mkDerivation {
 
   # }}}
 
-  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_armbian_rockchip64;
+  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_5_10_helios64;
   # boot.initrd.availableKernelModules = [ "nvme" "pcie-rockchip-host" ];
   # boot.kernelModules = [ "pcie-rockchip-host" ];
 
