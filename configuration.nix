@@ -11,4 +11,10 @@
   boot.supportedFilesystems = lib.mkForce [ "vfat" ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+
+  nixpkgs.overlays = [
+    (final: super: {
+      btrfs-progs = final.callPackage ({ runCommandNoCC }: runCommandNoCC "neutered" {} "mkdir -p $out") {};
+    })
+  ];
 }
