@@ -1,4 +1,4 @@
-{ pkgs ? import ./nixpkgs.nix {} }:
+{ pkgs ? import (import ./npins).nixpkgs {} }:
 
 let
   nixpkgsPath = pkgs.path;
