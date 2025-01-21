@@ -1,0 +1,44 @@
+name: Builds
+on:
+  workflow_call:
+    inputs:
+      filter:
+        required: true
+        type: string
+
+jobs:
+  matrix:
+    name: Build outputs matrix
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.build-matrix.outputs.matrix }}
+    steps:
+      - uses: samueldr/nix-build-action@latest
+      # NOTE: we're using the fact that `nix-build release.nix` is a no-op due
+      # to the attribute names being "invalid" for automatic selection.
+      - id: build-matrix
+        name: "Generate Build Matrix"
+        run: |
+          (
+          PS4=" $ "
+          set -xeu
+          printf "matrix=%s\n" "$(nix-instantiate --show-trace --argstr filter "${{ inputs.filter }}" --strict --eval --json .ci/build-matrices.nix)"
+          ) | tee -a "$GITHUB_OUTPUT"
+
+  builds:
+    name: ${{ matrix.attr }}
+    needs: matrix
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.matrix.outputs.matrix) }}
+    steps:
+      - name: 💤 Random delay
+        run: |
+          delay=$(( RANDOM % ( 3 * 60 ) ))
+          printf "Waiting for %d seconds...\n" "$delay"
+          while (( delay-- && delay > 0 )); do printf "."; sleep 1; done
+          printf "\n... done!\n"
+      - uses: samueldr/nix-build-action@latest
+        with:
+          attributes: ${{ matrix.attr }}

@@ -1,0 +1,21 @@
+name: "CI"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "latest"
+
+jobs:
+  sd-images:
+    name: "SD image builds"
+    uses: ./.github/workflows/filtered-builds.yml
+    with:
+      filter: sdImage
+  iso-images:
+    name: "ISO image builds"
+    uses: ./.github/workflows/filtered-builds.yml
+    with:
+      filter: isoImage
+    needs:
+      - sd-images # to try and re-use build products
