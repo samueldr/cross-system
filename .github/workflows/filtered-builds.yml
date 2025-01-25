@@ -8,7 +8,7 @@ on:
 
 jobs:
   matrix:
-    name: Build outputs matrix
+    name: Build outputs matrix (${{ inputs.filter }})
     runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.build-matrix.outputs.matrix }}
@@ -16,6 +16,7 @@ jobs:
       - uses: samueldr/nix-build-action@latest
         with:
           expression-file: .ci/build-matrices.nix
+          nix-build-extra-arguments: --argstr filter ${{ inputs.filter }}
       - id: build-matrix
         name: "Generate Build Matrix"
         run: |
