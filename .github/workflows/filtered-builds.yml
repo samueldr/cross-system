@@ -14,16 +14,12 @@ jobs:
       matrix: ${{ steps.build-matrix.outputs.matrix }}
     steps:
       - uses: samueldr/nix-build-action@latest
-      # NOTE: we're using the fact that `nix-build release.nix` is a no-op due
-      # to the attribute names being "invalid" for automatic selection.
+        with:
+          expression-file: .ci/build-matrices.nix
       - id: build-matrix
         name: "Generate Build Matrix"
         run: |
-          (
-          PS4=" $ "
-          set -xeu
-          printf "matrix=%s\n" "$(nix-instantiate --show-trace --argstr filter "${{ inputs.filter }}" --strict --eval --json .ci/build-matrices.nix)"
-          ) | tee -a "$GITHUB_OUTPUT"
+          printf "matrix=%s\n" "$(cat result)" >> "$GITHUB_OUTPUT"
 
   builds:
     name: ${{ matrix.attr }}
