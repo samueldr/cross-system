@@ -4,14 +4,14 @@ let
   nixpkgsPath = pkgs.path;
   fromPkgs = path: pkgs.path + "/${path}";
   evalConfig = import (fromPkgs "nixos/lib/eval-config.nix");
-  buildConfig = { system, configuration ? {} }:
+  buildConfig = { system, variantConfiguration ? {} }:
     evalConfig {
       specialArgs = {
         inherit nixpkgsPath;
       };
       modules= [
           (./. + "/${system}.nix")
-          configuration
+          variantConfiguration
       ];
     }
   ;
@@ -20,49 +20,45 @@ in
   armv6l-linux = {
     sdImage = (buildConfig {
       system = "armv6l-linux";
-      configuration = (fromPkgs "nixos/modules/installer/sd-card/sd-image-raspberrypi.nix");
+      variantConfiguration = (fromPkgs "nixos/modules/installer/sd-card/sd-image-raspberrypi-installer.nix");
     }).config.system.build.sdImage;
     pkgs = (buildConfig {
       system = "armv7l-linux";
-      configuration = {};
     }).pkgs;
   };
   armv7l-linux = {
     isoImage = (buildConfig {
       system = "armv7l-linux";
-      configuration = (fromPkgs "nixos/modules/installer/cd-dvd/installation-cd-minimal.nix");
+      variantConfiguration = (fromPkgs "nixos/modules/installer/cd-dvd/installation-cd-minimal.nix");
     }).config.system.build.isoImage;
     sdImage = (buildConfig {
       system = "armv7l-linux";
-      configuration = (fromPkgs "nixos/modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix");
+      variantConfiguration = (fromPkgs "nixos/modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix");
     }).config.system.build.sdImage;
     pkgs = (buildConfig {
       system = "armv7l-linux";
-      configuration = {};
     }).pkgs;
   };
   aarch64-linux = {
     isoImage = (buildConfig {
       system = "aarch64-linux";
-      configuration = (fromPkgs "nixos/modules/installer/cd-dvd/installation-cd-minimal.nix");
+      variantConfiguration = (fromPkgs "nixos/modules/installer/cd-dvd/installation-cd-minimal.nix");
     }).config.system.build.isoImage;
     sdImage = (buildConfig {
       system = "aarch64-linux";
-      configuration = (fromPkgs "nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix");
+      variantConfiguration = (fromPkgs "nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix");
     }).config.system.build.sdImage;
     pkgs = (buildConfig {
       system = "aarch64-linux";
-      configuration = {};
     }).pkgs;
   };
   riscv64-linux = {
     isoImage = (buildConfig {
       system = "riscv64-linux";
-      configuration = (fromPkgs "nixos/modules/installer/cd-dvd/installation-cd-minimal.nix");
+      variantConfiguration = (fromPkgs "nixos/modules/installer/cd-dvd/installation-cd-minimal.nix");
     }).config.system.build.isoImage;
     pkgs = (buildConfig {
       system = "riscv64-linux";
-      configuration = {};
     }).pkgs;
   };
 }
