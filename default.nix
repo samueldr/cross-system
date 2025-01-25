@@ -66,6 +66,10 @@ in
       system = "riscv64-linux";
       variantConfiguration = (fromPkgs "nixos/modules/installer/cd-dvd/installation-cd-minimal.nix");
     }).config.system.build.isoImage;
+    sdImage = (buildConfig {
+      system = "riscv64-linux";
+      variantConfiguration = ./systems/riscv64-linux.sd-image.nix;
+    }).config.system.build.sdImage;
     pkgs = (buildConfig {
       system = "riscv64-linux";
     }).pkgs;
