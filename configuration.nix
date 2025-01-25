@@ -18,6 +18,32 @@
         ]
       ;
     });
+
+    #
+    # armv7l and armv6l:
+    #
+    # ```
+    #   396 |                 iter->esl = (efi_signature_list_t *)((intptr_t)iter->buf
+    #       |                             ^
+    # esl-iter.c:414:74: error: format '%lx' expects argument of type 'long unsigned int', but argument 4 has type 'off_t' {aka 'long long int'} [-Werror=format=]
+    #   414 |                         warnx("correcting ESL size from %d to %jd at 0x%lx",
+    #       |                                                                        ~~^
+    #       |                                                                          |
+    #       |                                                                          long unsigned int
+    #       |                                                                        %llx
+    #   415 |                               iter->esl->signature_list_size,
+    #   416 |                               (intmax_t)(iter->len - iter->offset), iter->offset);
+    #       |                                                                     ~~~~~~~~~~~~
+    #       |                                                                         |
+    #       |                                                                         off_t {aka long long int}
+    # cc1: all warnings being treated as errors
+    # make[1]: *** [/build/source/src/include/rules.mk:53: esl-iter.o] Error 1
+    # make[1]: Leaving directory '/build/source/src'
+    # make: *** [Makefile:17: all] Error 2
+    # ```
+    efivar = super.efivar.overrideAttrs({ env ? {}, ... }: {
+      env.NIX_CFLAGS_COMPILE = "${env.NIX_CFLAGS_COMPILE or ""} -Wno-error=format -Wno-error=int-to-pointer-cast";
+    });
   })];
 
   # cifs-utils fails to cross-compile
