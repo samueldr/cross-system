@@ -11,7 +11,7 @@ let
       };
       modules= [
           ./configuration
-          (./. + "/${system}.nix")
+          (./systems + "/${system}.nix")
           variantConfiguration
           {
             nixpkgs.crossSystem = {
