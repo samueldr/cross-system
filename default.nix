@@ -55,4 +55,14 @@ in
       configuration = {};
     }).pkgs;
   };
+  riscv64-linux = {
+    isoImage = (buildConfig {
+      system = "riscv64-linux";
+      configuration = (fromPkgs "nixos/modules/installer/cd-dvd/installation-cd-minimal.nix");
+    }).config.system.build.isoImage;
+    pkgs = (buildConfig {
+      system = "riscv64-linux";
+      configuration = {};
+    }).pkgs;
+  };
 }
