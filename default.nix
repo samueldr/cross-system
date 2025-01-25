@@ -12,6 +12,11 @@ let
       modules= [
           (./. + "/${system}.nix")
           variantConfiguration
+          {
+            nixpkgs.crossSystem = {
+              inherit system;
+            };
+          }
       ];
     }
   ;

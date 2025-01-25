@@ -15,8 +15,4 @@
       })
     ;
   })];
-
-  nixpkgs.crossSystem = {
-    system = "armv7l-linux";
-  };
 }
