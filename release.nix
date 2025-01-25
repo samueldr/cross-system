@@ -14,7 +14,7 @@ let
                 name = "${system}/${name}";
                 value = images.${name};
               }
-            ) (builtins.attrNames images)
+            ) (builtins.filter (attr: attr != "pkgs") (builtins.attrNames images))
           ) default
         )
       )

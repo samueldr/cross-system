@@ -22,6 +22,10 @@ in
       system = "armv6l-linux";
       configuration = (fromPkgs "nixos/modules/installer/sd-card/sd-image-raspberrypi.nix");
     }).config.system.build.sdImage;
+    pkgs = (buildConfig {
+      system = "armv7l-linux";
+      configuration = {};
+    }).pkgs;
   };
   armv7l-linux = {
     isoImage = (buildConfig {
@@ -32,6 +36,10 @@ in
       system = "armv7l-linux";
       configuration = (fromPkgs "nixos/modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix");
     }).config.system.build.sdImage;
+    pkgs = (buildConfig {
+      system = "armv7l-linux";
+      configuration = {};
+    }).pkgs;
   };
   aarch64-linux = {
     isoImage = (buildConfig {
@@ -42,5 +50,9 @@ in
       system = "aarch64-linux";
       configuration = (fromPkgs "nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix");
     }).config.system.build.sdImage;
+    pkgs = (buildConfig {
+      system = "aarch64-linux";
+      configuration = {};
+    }).pkgs;
   };
 }
