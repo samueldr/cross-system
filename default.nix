@@ -10,6 +10,7 @@ let
         inherit nixpkgsPath;
       };
       modules= [
+          ./configuration
           (./. + "/${system}.nix")
           variantConfiguration
           {

@@ -1,5 +1,2 @@
 {
-  imports = [
-    ./configuration.nix 
-  ];
 }
