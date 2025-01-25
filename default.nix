@@ -7,7 +7,10 @@ let
   buildConfig = { system, variantConfiguration ? {} }:
     evalConfig {
       specialArgs = {
-        inherit nixpkgsPath;
+        inherit
+          nixpkgsPath
+          fromPkgs
+        ;
       };
       modules= [
           ./configuration
