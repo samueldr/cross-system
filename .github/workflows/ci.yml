@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - "latest"
+      - "update/next"
 
 jobs:
   sd-images:
